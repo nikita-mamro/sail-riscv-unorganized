@@ -26,18 +26,45 @@ trap_vector:
 #APP
 # 13 "./dummy.c" 1
 	csrr t5, mcause;
-	j write_tohost;
+         li t6, 0x8;
+         beq t5, t6, write_tohost;
+         li t6, 0x9;
+         beq t5, t6, write_tohost;
+         li t6, 0xb;
+         beq t5, t6, write_tohost;
+         la t5, mtvec_handler;
+         beqz t5, 1f;
+         jr t5;
+         1: csrr t5, mcause;
+         bgez t5, handle_exception;
+         j other_exception;
+         handle_exception:
+         other_exception:
+         1: ori gp, gp, 1337;
 # 0 "" 2
 #NO_APP
 	ret
 	.size	trap_vector, .-trap_vector
 	.align	1
 	.align	2
+	.globl	write_tohost
+	.type	write_tohost, @function
+write_tohost:
+#APP
+# 35 "./dummy.c" 1
+	sw gp, tohost, t5;
+	j write_tohost
+# 0 "" 2
+#NO_APP
+	ret
+	.size	write_tohost, .-write_tohost
+	.align	1
+	.align	2
 	.globl	reset_vector
 	.type	reset_vector, @function
 reset_vector:
 #APP
-# 20 "./dummy.c" 1
+# 42 "./dummy.c" 1
 	li x1, 0;
 	li x2, 0;
 	li x3, 0;
@@ -70,40 +97,79 @@ reset_vector:
 	li x30, 0;
 	li x31, 0;
 # 0 "" 2
-# 24 "./dummy.c" 1
-	csrr a0, mhartid;         la t0, 1f;         csrw mtvec, t0;         csrwi satp, 0;         .align 2         1:         la t0, 1f         csrw mtvec, t0         li t0, (1 << (31 + (__riscv_xlen / 64) * (53 - 31))) - 1         csrw pmpaddr0, t0         li t0, 0x18 | 0x01 | 0x02 | 0x04         csrw pmpcfg0, t0         .align 2         1:         csrwi mie, 0         la t0, 1f         csrw mtvec, t0         csrwi medeleg, 0         csrwi mideleg, 0         .align 2         1:         li gp, 0         la t0, trap_vector         csrw mtvec, t0         li a0, 1         slli a0, a0, 31         bltz a0, 1f         fence         li gp, 1         li a7, 93         li a0, 0         ecall         1:         la t0, stvec_handler         beqz t0, 1f         csrw stvec, t0         li t0, (1 << 0xd) | (1 << 0xf) | (1 << 0xc) | (1 << 0x0) | (1 << 0x8) | (1 << 0x3)         csrw medeleg, t0         1: csrwi mstatus, 0         init         la t0, test         csrw mepc, t0         csrr a0, mhartid         mret
+# 46 "./dummy.c" 1
+	csrr a0, mhartid;
+        1: bnez a0, 1b;
+         la t0, 1f;
+         csrw mtvec, t0;
+         csrwi satp, 0;
+         .align 2
+         1:;
+         	la t0, 1f;
+         	csrw mtvec, t0;
+         	li t0, (1 << (31 + (__riscv_xlen / 64) * (53 - 31))) - 1
+         	csrw pmpaddr0, t0
+         	li t0, 0x18 | 0x01 | 0x02 | 0x04
+         	csrw pmpcfg0, t0
+         .align 2
+         1:;
+         	csrwi mie, 0
+         	la t0, 1f
+         	csrw mtvec, t0
+         	csrwi medeleg, 0
+         	csrwi mideleg, 0
+         .align 2
+         1:;
+         	li gp, 0
+         	la t0, trap_vector
+         	csrw mtvec, t0
+         	li a0, 1
+         	slli a0, a0, 31
+         	bgez a0, 1f
+         	fence
+         	li gp, 1
+         	li a7, 93
+         	li a0, 0
+         	ecall
+         1:;
+         	la t0, stvec_handler
+         	beqz t0, 1f
+         	csrw stvec, t0
+         	li t0, (1 << 0xd) | (1 << 0xf) | (1 << 0xc) | (1 << 0x0) | (1 << 0x8) | (1 << 0x3)
+         	csrw medeleg, t0
+         1: csrwi mstatus, 0
+         	la t0, 1f
+         	csrw mepc, t0
+         	csrr a0, mhartid
+         	mret
 # 0 "" 2
 #NO_APP
 	ret
 	.size	reset_vector, .-reset_vector
 	.align	1
 	.align	2
-	.globl	write_tohost
-	.type	write_tohost, @function
-write_tohost:
+	.globl	test_prelude
+	.type	test_prelude, @function
+test_prelude:
 #APP
-# 74 "./dummy.c" 1
-	sw gp, tohost, t5;
+# 98 "./dummy.c" 1
+	j test
 # 0 "" 2
 #NO_APP
 	ret
-	.size	write_tohost, .-write_tohost
+	.size	test_prelude, .-test_prelude
 	.align	1
 	.align	2
 	.globl	test
 	.type	test, @function
 test:
-	addi	sp,sp,-16
-	li	a5,1
-	sw	a5,8(sp)
-	sw	a5,12(sp)
-	lw	a4,8(sp)
-	lw	a5,12(sp)
-	beq	a4,a5,.L10
 #APP
-# 95 "./dummy.c" 1
+# 106 "./dummy.c" 1
+	li gp, 2;
+# 0 "" 2
+# 122 "./dummy.c" 1
 	fence;
-1: beqz gp, 1b;
+1: beqz gp, test_prelude;
 	sll gp, gp, 1;
 	or gp, gp, 1;
 	li a7, 93;
@@ -111,20 +177,7 @@ test:
 	ecall;
 # 0 "" 2
 #NO_APP
-	addi	sp,sp,16
-	jr	ra
-.L10:
-#APP
-# 102 "./dummy.c" 1
-	fence;
-	li gp, 1;
-	li a7, 93;
-	li a0, 0;
-	ecall
-# 0 "" 2
-#NO_APP
-	addi	sp,sp,16
-	jr	ra
+	ret
 	.size	test, .-test
 	.align	1
 	.align	2
@@ -132,9 +185,9 @@ test:
 	.type	fail, @function
 fail:
 #APP
-# 95 "./dummy.c" 1
+# 122 "./dummy.c" 1
 	fence;
-1: beqz gp, 1b;
+1: beqz gp, test_prelude;
 	sll gp, gp, 1;
 	or gp, gp, 1;
 	li a7, 93;
@@ -150,7 +203,7 @@ fail:
 	.type	pass, @function
 pass:
 #APP
-# 102 "./dummy.c" 1
+# 129 "./dummy.c" 1
 	fence;
 	li gp, 1;
 	li a7, 93;
@@ -160,6 +213,18 @@ pass:
 #NO_APP
 	ret
 	.size	pass, .-pass
+	.align	1
+	.align	2
+	.globl	handlers
+	.type	handlers, @function
+handlers:
+#APP
+# 137 "./dummy.c" 1
+	.weak stvec_handler;	    .weak mtvec_handler;
+# 0 "" 2
+#NO_APP
+	ret
+	.size	handlers, .-handlers
 	.align	1
 	.align	2
 	.globl	begin_signature
