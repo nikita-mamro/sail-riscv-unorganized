@@ -1,48 +1,98 @@
 #include <stdint.h>
 
+#define MCAUSE      0x342
+#define MSTATUS     0x300
+#define IMM         1337
+
+extern volatile uint64_t mcause __attribute__((csr(MCAUSE)));
+extern volatile uint64_t mstatus __attribute__((csr(MSTATUS)));
+
+void *stvec_handler () __attribute__ ((weak));
+void *mtvec_handler () __attribute__ ((weak));
+
+//uint64_t imm_I(uint32_t inst) {
+//    // imm[11:0] = inst[31:20]
+//    return ((int64_t)(int32_t) (inst & 0xfff00000)) >> 20; // right shift as signed?
+//}
+
 void main()
 {
-    __asm__ volatile (
-        "j reset_vector;"
-    );
+    //reset_vector();
+}
+
+
+void write_tohost(uint64_t cause)
+{
+    /*
+    uint64_t imm = imm_S(inst);
+    uint64_t addr = cpu->regs[rs1(inst)] + (int64_t) imm;
+    cpu_store(cpu, addr, 32, cpu->regs[rs2(inst)]);
+    */
+    uint64_t imm = IMM;
+    
+    register int *gp asm ("gp");
+
+    write_tohost(cause);
+
+
+    //__asm__ volatile (
+    //    "sw gp, tohost, t5;\n\tj write_tohost"
+    //);
 }
 
 // TODO: separate exception handling
 void trap_vector()
 {
-    __asm__ volatile (
-        "csrr t5, mcause;\n\
-         li t6, 0x8;\n\
-         beq t5, t6, write_tohost;\n\
-         li t6, 0x9;\n\
-         beq t5, t6, write_tohost;\n\
-         li t6, 0xb;\n\
-         beq t5, t6, write_tohost;\n\
-         la t5, mtvec_handler;\n\
-         beqz t5, 1f;\n\
-         jr t5;\n\
-         1: csrr t5, mcause;\n\
-         bgez t5, handle_exception;\n\
-         j other_exception;\n\
-         handle_exception:\n\
-         other_exception:\n\
-         1: ori gp, gp, 1337;"
-    );
-}
+    switch (mcause)
+    {
+        case 0x8:
+        case 0x9:
+        case 0xb:
+            write_tohost(mcause);
+            break;
+        default:
+            // ???
+            if (*(int *)mtvec_handler != 0) {
+                return;
+            }
 
-void write_tohost()
-{
-    __asm__ volatile (
-        "sw gp, tohost, t5;\n\tj write_tohost"
-    );
+            // In base implementation there's no handle exc implementation anyway
+            //if (*(int *)mcause > 0) {
+            //}
+            // 1: ori gp, gp, 1337;
+            // ori rd, rs1, imm
+            // ORI: self.regs[rd] = self.regs[rs1] | imm*/
+
+            //uint64_t imm = imm_I(1337); ?
+            uint64_t imm = IMM;
+            register int *gp asm ("gp");
+            *gp |= imm;
+
+            break;
+    }
 }
 
 void reset_vector()
 {
-    __asm__ volatile (
-        "li x1, 0;\n\tli x2, 0;\n\tli x3, 0;\n\tli x4, 0;\n\tli x5, 0;\n\tli x6, 0;\n\tli x7, 0;\n\tli x8, 0;\n\tli x9, 0;\n\tli x10, 0;\n\tli x11, 0;\n\tli x12, 0;\n\tli x13, 0;\n\tli x14, 0;\n\tli x15, 0;\n\tli x16, 0;\n\tli x17, 0;\n\tli x18, 0;\n\tli x19, 0;\n\tli x20, 0;\n\tli x21, 0;\n\tli x22, 0;\n\tli x23, 0;\n\tli x24, 0;\n\tli x25, 0;\n\tli x26, 0;\n\tli x27, 0;\n\tli x28, 0;\n\tli x29, 0;\n\tli x30, 0;\n\tli x31, 0;"
-    );
-    // XXX: definetly some useless code here
+    uint64_t i;
+    for (i = 0; i < 32; i++) {
+        __asm__ volatile ("li x1, 0;");
+    }
+    //int i;
+    //char buf[3];
+    //for (i = 0; i < 32; i++) {
+	//    snprintf(buf, 12, "x%d", i);
+    //    //register int *x asm (buf);
+    //    __asm__ volatile (
+    //        "li" [buf]", 0"
+    //    );
+    //}
+
+    //__asm__ volatile (
+    //    "li x1, 0;\n\tli x2, 0;\n\tli x3, 0;\n\tli x4, 0;\n\tli x5, 0;\n\tli x6, 0;\n\tli x7, 0;\n\tli x8, 0;\n\tli x9, 0;\n\tli x10, 0;\n\tli x11, 0;\n\tli x12, 0;\n\tli x13, 0;\n\tli x14, 0;\n\tli x15, 0;\n\tli x16, 0;\n\tli x17, 0;\n\tli x18, 0;\n\tli x19, 0;\n\tli x20, 0;\n\tli x21, 0;\n\tli x22, 0;\n\tli x23, 0;\n\tli x24, 0;\n\tli x25, 0;\n\tli x26, 0;\n\tli x27, 0;\n\tli x28, 0;\n\tli x29, 0;\n\tli x30, 0;\n\tli x31, 0;"
+    //);
+    /*
+    // XXX: definitely some useless code here
     __asm__ volatile (
         "csrr a0, mhartid;\n\
         1: bnez a0, 1b;\n\
@@ -89,8 +139,11 @@ void reset_vector()
          \tcsrr a0, mhartid\n\
          \tmret"
     );
+    */
 }
 
+
+/*
 void fail();
 void pass();
 
@@ -116,7 +169,9 @@ void test()
         fail();
     }
 }
+*/
 
+/*
 void fail()
 {
     __asm__ volatile (
@@ -130,15 +185,7 @@ void pass()
         "fence;\n\tli gp, 1;\n\tli a7, 93;\n\tli a0, 0;\n\tecall"
     );
 }
-
-// XXX: so-so
-void handlers()
-{
-    __asm__ volatile (
-        ".weak stvec_handler;\
-	    .weak mtvec_handler;"
-    );
-}
+*/
 
 __attribute__((optimize("align-functions=4")))
 void begin_signature() {}
