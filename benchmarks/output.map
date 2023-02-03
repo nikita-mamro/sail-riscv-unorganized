@@ -1,0 +1,142 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD /tmp/ccVz8MsD.o
+LOAD /tmp/cc1nRLEK.o
+LOAD /tmp/ccVVDzGp.o
+LOAD /usr/lib/gcc-cross/riscv64-linux-gnu/12/../../../../riscv64-linux-gnu/lib/libm.a
+LOAD /usr/lib/gcc-cross/riscv64-linux-gnu/12/libgcc.a
+                0x0000000080000000                . = 0x80000000
+
+.note.gnu.build-id
+                0x0000000080000000       0x24
+ .note.gnu.build-id
+                0x0000000080000000       0x24 /tmp/ccVz8MsD.o
+
+.text.init      0x0000000080000024      0x200
+ *(.text.init)
+ .text.init     0x0000000080000024      0x200 /tmp/ccVVDzGp.o
+                0x0000000080000024                _start
+                0x0000000080001000                . = ALIGN (0x1000)
+
+.tohost         0x0000000080001000       0x48
+ *(.tohost)
+ .tohost        0x0000000080001000       0x48 /tmp/ccVVDzGp.o
+                0x0000000080001000                tohost
+                0x0000000080001040                fromhost
+                0x0000000080002000                . = ALIGN (0x1000)
+
+.text           0x0000000080002000      0x9f8
+ *(.text)
+ .text          0x0000000080002000        0x0 /tmp/ccVz8MsD.o
+ .text          0x0000000080002000      0x9f8 /tmp/cc1nRLEK.o
+                0x0000000080002424                putchar
+                0x00000000800024c0                memcpy
+                0x000000008000251c                memset
+                0x0000000080002570                strcpy
+                0x000000008000258c                sprintf
+                0x00000000800025f8                printf
+                0x0000000080002650                setStats
+                0x00000000800026a8                tohost_exit
+                0x00000000800026c0                handle_trap
+                0x00000000800026d8                exit
+                0x00000000800026e4                abort
+                0x00000000800026f8                printstr
+                0x0000000080002774                thread_entry
+                0x000000008000277c                _init
+                0x0000000080002878                printhex
+                0x00000000800028d4                strlen
+                0x00000000800028fc                strnlen
+                0x0000000080002934                strcmp
+                0x0000000080002960                atol
+ .text          0x00000000800029f8        0x0 /tmp/ccVVDzGp.o
+
+.text.startup   0x00000000800029f8       0x2c
+ .text.startup  0x00000000800029f8        0x8 /tmp/ccVz8MsD.o
+                0x00000000800029f8                main
+ .text.startup  0x0000000080002a00       0x24 /tmp/cc1nRLEK.o
+
+.rodata.str1.8  0x0000000080002a28       0x42
+ .rodata.str1.8
+                0x0000000080002a28       0x42 /tmp/cc1nRLEK.o
+
+.rodata         0x0000000080002a6c      0x158
+ .rodata        0x0000000080002a6c      0x158 /tmp/cc1nRLEK.o
+
+.rodata.cst8    0x0000000080002bc8        0x8
+ .rodata.cst8   0x0000000080002bc8        0x8 /tmp/cc1nRLEK.o
+
+.rela.dyn       0x0000000080002bd0        0x0
+ .rela.got      0x0000000080002bd0        0x0 /tmp/cc1nRLEK.o
+ .rela.text.init
+                0x0000000080002bd0        0x0 /tmp/cc1nRLEK.o
+
+.data           0x0000000080002bd0        0x0
+ *(.data)
+ .data          0x0000000080002bd0        0x0 /tmp/ccVz8MsD.o
+ .data          0x0000000080002bd0        0x0 /tmp/cc1nRLEK.o
+ .data          0x0000000080002bd0        0x0 /tmp/ccVVDzGp.o
+
+.got            0x0000000080002bd0       0x48
+ .got           0x0000000080002bd0       0x48 /tmp/cc1nRLEK.o
+                0x0000000080002bd0                _GLOBAL_OFFSET_TABLE_
+
+.got.plt        0x0000000080002c18       0x10
+ .got.plt       0x0000000080002c18       0x10 /tmp/cc1nRLEK.o
+
+.sdata          0x0000000080002c28        0x0
+                0x0000000080003428                __global_pointer$ = (. + 0x800)
+ *(.srodata.cst16)
+ *(.srodata.cst8)
+ *(.srodata.cst4)
+ *(.srodata.cst2)
+ *(.srodata*)
+ *(.sdata .sdata.* .gnu.linkonce.s.*)
+
+.sbss
+ *(.sbss .sbss.* .gnu.linkonce.sb.*)
+ *(.scommon)
+
+.bss            0x0000000080002c28       0x20
+ *(.bss)
+ .bss           0x0000000080002c28        0x0 /tmp/ccVz8MsD.o
+ .bss           0x0000000080002c28       0x20 /tmp/cc1nRLEK.o
+ .bss           0x0000000080002c48        0x0 /tmp/ccVVDzGp.o
+
+.tdata          0x0000000080002c48        0x0
+                0x0000000080002c48                _tdata_begin = .
+ *(.tdata)
+                0x0000000080002c48                _tdata_end = .
+
+.tbss           0x0000000080002c80       0x80
+ *(.tbss)
+ .tbss          0x0000000080002c80       0x80 /tmp/cc1nRLEK.o
+                0x0000000080002d00                _tbss_end = .
+                0x0000000080002c80                _end = .
+OUTPUT(./_out/sum.elf elf64-littleriscv)
+
+.comment        0x0000000000000000       0x2b
+ .comment       0x0000000000000000       0x2b /tmp/ccVz8MsD.o
+                                         0x2c (size before relaxing)
+ .comment       0x000000000000002b       0x2c /tmp/cc1nRLEK.o
+
+.note.GNU-stack
+                0x0000000000000000        0x0
+ .note.GNU-stack
+                0x0000000000000000        0x0 /tmp/ccVz8MsD.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 /tmp/cc1nRLEK.o
+
+.riscv.attributes
+                0x0000000000000000       0x38
+ .riscv.attributes
+                0x0000000000000000       0x34 /tmp/ccVz8MsD.o
+ .riscv.attributes
+                0x0000000000000034       0x38 /tmp/cc1nRLEK.o
+ .riscv.attributes
+                0x000000000000006c       0x36 /tmp/ccVVDzGp.o
