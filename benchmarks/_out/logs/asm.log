@@ -1,0 +1,350 @@
+PROLOGUE: [size=45]
+0x7fb728000000:  push   %rbp
+0x7fb728000001:  push   %rbx
+0x7fb728000002:  push   %r12
+0x7fb728000004:  push   %r13
+0x7fb728000006:  push   %r14
+0x7fb728000008:  push   %r15
+0x7fb72800000a:  mov    %rdi,%rbp
+0x7fb72800000d:  add    $0xfffffffffffffb78,%rsp
+0x7fb728000014:  jmpq   *%rsi
+0x7fb728000016:  xor    %eax,%eax
+0x7fb728000018:  add    $0x488,%rsp
+0x7fb72800001f:  emms   
+0x7fb728000022:  pop    %r15
+0x7fb728000024:  pop    %r14
+0x7fb728000026:  pop    %r13
+0x7fb728000028:  pop    %r12
+0x7fb72800002a:  pop    %rbx
+0x7fb72800002b:  pop    %rbp
+0x7fb72800002c:  retq   
+
+----------------
+IN: 
+0x0000000080000024:  00000093          mv              ra,zero
+0x0000000080000028:  00000113          mv              sp,zero
+0x000000008000002c:  00000193          mv              gp,zero
+0x0000000080000030:  00000213          mv              tp,zero
+0x0000000080000034:  00000293          mv              t0,zero
+0x0000000080000038:  00000313          mv              t1,zero
+0x000000008000003c:  00000393          mv              t2,zero
+0x0000000080000040:  00000413          mv              s0,zero
+0x0000000080000044:  00000493          mv              s1,zero
+0x0000000080000048:  00000513          mv              a0,zero
+0x000000008000004c:  00000593          mv              a1,zero
+0x0000000080000050:  00000613          mv              a2,zero
+0x0000000080000054:  00000693          mv              a3,zero
+0x0000000080000058:  00000713          mv              a4,zero
+0x000000008000005c:  00000793          mv              a5,zero
+0x0000000080000060:  00000813          mv              a6,zero
+0x0000000080000064:  00000893          mv              a7,zero
+0x0000000080000068:  00000913          mv              s2,zero
+0x000000008000006c:  00000993          mv              s3,zero
+0x0000000080000070:  00000a13          mv              s4,zero
+0x0000000080000074:  00000a93          mv              s5,zero
+0x0000000080000078:  00000b13          mv              s6,zero
+0x000000008000007c:  00000b93          mv              s7,zero
+0x0000000080000080:  00000c13          mv              s8,zero
+0x0000000080000084:  00000c93          mv              s9,zero
+0x0000000080000088:  00000d13          mv              s10,zero
+0x000000008000008c:  00000d93          mv              s11,zero
+0x0000000080000090:  00000e13          mv              t3,zero
+0x0000000080000094:  00000e93          mv              t4,zero
+0x0000000080000098:  00000f13          mv              t5,zero
+0x000000008000009c:  00000f93          mv              t6,zero
+0x00000000800000a0:  0001e2b7          lui             t0,122880
+0x00000000800000a4:  00100293          addi            t0,zero,1
+0x00000000800000a8:  01f29293          slli            t0,t0,31
+0x00000000800000ac:  0002da63          bgez            t0,20           # 0x800000c0
+
+OUT: [size=352]
+  -- guest addr 0x0000000080000024 + tb prologue
+0x7fb728000100:  mov    -0x10(%rbp),%ebx
+0x7fb728000103:  test   %ebx,%ebx
+0x7fb728000105:  jl     0x7fb728000254
+0x7fb72800010b:  movq   $0x0,0x8(%rbp)
+  -- guest addr 0x0000000080000028
+0x7fb728000113:  movq   $0x0,0x10(%rbp)
+  -- guest addr 0x000000008000002c
+0x7fb72800011b:  movq   $0x0,0x18(%rbp)
+  -- guest addr 0x0000000080000030
+0x7fb728000123:  movq   $0x0,0x20(%rbp)
+  -- guest addr 0x0000000080000038
+0x7fb72800012b:  movq   $0x0,0x30(%rbp)
+  -- guest addr 0x000000008000003c
+0x7fb728000133:  movq   $0x0,0x38(%rbp)
+  -- guest addr 0x0000000080000040
+0x7fb72800013b:  movq   $0x0,0x40(%rbp)
+  -- guest addr 0x0000000080000044
+0x7fb728000143:  movq   $0x0,0x48(%rbp)
+  -- guest addr 0x0000000080000048
+0x7fb72800014b:  movq   $0x0,0x50(%rbp)
+  -- guest addr 0x000000008000004c
+0x7fb728000153:  movq   $0x0,0x58(%rbp)
+  -- guest addr 0x0000000080000050
+0x7fb72800015b:  movq   $0x0,0x60(%rbp)
+  -- guest addr 0x0000000080000054
+0x7fb728000163:  movq   $0x0,0x68(%rbp)
+  -- guest addr 0x0000000080000058
+0x7fb72800016b:  movq   $0x0,0x70(%rbp)
+  -- guest addr 0x000000008000005c
+0x7fb728000173:  movq   $0x0,0x78(%rbp)
+  -- guest addr 0x0000000080000060
+0x7fb72800017b:  movq   $0x0,0x80(%rbp)
+  -- guest addr 0x0000000080000064
+0x7fb728000186:  movq   $0x0,0x88(%rbp)
+  -- guest addr 0x0000000080000068
+0x7fb728000191:  movq   $0x0,0x90(%rbp)
+  -- guest addr 0x000000008000006c
+0x7fb72800019c:  movq   $0x0,0x98(%rbp)
+  -- guest addr 0x0000000080000070
+0x7fb7280001a7:  movq   $0x0,0xa0(%rbp)
+  -- guest addr 0x0000000080000074
+0x7fb7280001b2:  movq   $0x0,0xa8(%rbp)
+  -- guest addr 0x0000000080000078
+0x7fb7280001bd:  movq   $0x0,0xb0(%rbp)
+  -- guest addr 0x000000008000007c
+0x7fb7280001c8:  movq   $0x0,0xb8(%rbp)
+  -- guest addr 0x0000000080000080
+0x7fb7280001d3:  movq   $0x0,0xc0(%rbp)
+  -- guest addr 0x0000000080000084
+0x7fb7280001de:  movq   $0x0,0xc8(%rbp)
+  -- guest addr 0x0000000080000088
+0x7fb7280001e9:  movq   $0x0,0xd0(%rbp)
+  -- guest addr 0x000000008000008c
+0x7fb7280001f4:  movq   $0x0,0xd8(%rbp)
+  -- guest addr 0x0000000080000090
+0x7fb7280001ff:  movq   $0x0,0xe0(%rbp)
+  -- guest addr 0x0000000080000094
+0x7fb72800020a:  movq   $0x0,0xe8(%rbp)
+  -- guest addr 0x0000000080000098
+0x7fb728000215:  movq   $0x0,0xf0(%rbp)
+  -- guest addr 0x000000008000009c
+0x7fb728000220:  movq   $0x0,0xf8(%rbp)
+  -- guest addr 0x00000000800000a8
+0x7fb72800022b:  mov    $0x80000000,%ebx
+0x7fb728000230:  mov    %rbx,0x28(%rbp)
+  -- guest addr 0x00000000800000ac
+0x7fb728000234:  xchg   %ax,%ax
+0x7fb728000237:  jmpq   0x7fb72800023c
+0x7fb72800023c:  mov    $0x800000c0,%ebx
+0x7fb728000241:  mov    %rbx,0x628(%rbp)
+0x7fb728000248:  lea    -0x20f(%rip),%rax        # 0x7fb728000040
+0x7fb72800024f:  jmpq   0x7fb728000018
+0x7fb728000254:  lea    -0x218(%rip),%rax        # 0x7fb728000043
+0x7fb72800025b:  jmpq   0x7fb728000018
+
+----------------
+IN: 
+0x00000000800000c0:  00003297          auipc           t0,12288        # 0x800030c0
+0x00000000800000c4:  b182b283          ld              t0,-1256(t0)
+0x00000000800000c8:  00003197          auipc           gp,12288        # 0x800030c8
+0x00000000800000cc:  b181b183          ld              gp,-1256(gp)
+0x00000000800000d0:  00003217          auipc           tp,12288        # 0x800030d0
+0x00000000800000d4:  b2023203          ld              tp,-1248(tp)
+0x00000000800000d8:  03f20213          addi            tp,tp,63
+0x00000000800000dc:  fc027213          andi            tp,tp,-64
+0x00000000800000e0:  00100593          addi            a1,zero,1
+0x00000000800000e4:  00b57063          bleu            a1,a0,0         # 0x800000e4
+
+OUT: [size=180]
+  -- guest addr 0x00000000800000c0 + tb prologue
+0x7fb728000380:  mov    -0x10(%rbp),%ebx
+0x7fb728000383:  test   %ebx,%ebx
+0x7fb728000385:  jl     0x7fb728000428
+0x7fb72800038b:  mov    $0x800030c0,%ebx
+0x7fb728000390:  mov    %rbx,0x28(%rbp)
+  -- guest addr 0x00000000800000c4
+0x7fb728000394:  mov    $0x80002bd8,%ebx
+0x7fb728000399:  mov    (%rbx),%rbx
+0x7fb72800039c:  mov    %rbx,0x28(%rbp)
+  -- guest addr 0x00000000800000c8
+0x7fb7280003a0:  mov    $0x800030c8,%ebx
+0x7fb7280003a5:  mov    %rbx,0x18(%rbp)
+  -- guest addr 0x00000000800000cc
+0x7fb7280003a9:  mov    $0x80002be0,%ebx
+0x7fb7280003ae:  mov    (%rbx),%rbx
+0x7fb7280003b1:  mov    %rbx,0x18(%rbp)
+  -- guest addr 0x00000000800000d0
+0x7fb7280003b5:  mov    $0x800030d0,%ebx
+0x7fb7280003ba:  mov    %rbx,0x20(%rbp)
+  -- guest addr 0x00000000800000d4
+0x7fb7280003be:  mov    $0x80002bf0,%ebx
+0x7fb7280003c3:  mov    (%rbx),%rbx
+  -- guest addr 0x00000000800000d8
+0x7fb7280003c6:  add    $0x3f,%rbx
+  -- guest addr 0x00000000800000dc
+0x7fb7280003ca:  and    $0xffffffffffffffc0,%rbx
+0x7fb7280003ce:  mov    %rbx,0x20(%rbp)
+  -- guest addr 0x00000000800000e0
+0x7fb7280003d2:  movq   $0x1,0x58(%rbp)
+  -- guest addr 0x00000000800000e4
+0x7fb7280003da:  mov    0x50(%rbp),%rbx
+0x7fb7280003de:  cmp    $0x1,%rbx
+0x7fb7280003e2:  jae    0x7fb728000408
+0x7fb7280003e8:  xchg   %ax,%ax
+0x7fb7280003eb:  jmpq   0x7fb7280003f0
+0x7fb7280003f0:  mov    $0x800000e8,%ebx
+0x7fb7280003f5:  mov    %rbx,0x628(%rbp)
+0x7fb7280003fc:  lea    -0x142(%rip),%rax        # 0x7fb7280002c1
+0x7fb728000403:  jmpq   0x7fb728000018
+0x7fb728000408:  xchg   %ax,%ax
+0x7fb72800040b:  jmpq   0x7fb728000410
+0x7fb728000410:  mov    $0x800000e4,%ebx
+0x7fb728000415:  mov    %rbx,0x628(%rbp)
+0x7fb72800041c:  lea    -0x163(%rip),%rax        # 0x7fb7280002c0
+0x7fb728000423:  jmpq   0x7fb728000018
+0x7fb728000428:  lea    -0x16c(%rip),%rax        # 0x7fb7280002c3
+0x7fb72800042f:  jmpq   0x7fb728000018
+
+----------------
+IN: 
+0x00000000800000e8:  00150113          addi            sp,a0,1
+0x00000000800000ec:  01111113          slli            sp,sp,17
+0x00000000800000f0:  00410133          add             sp,sp,tp
+0x00000000800000f4:  01151613          slli            a2,a0,17
+0x00000000800000f8:  00c20233          add             tp,tp,a2
+0x00000000800000fc:  6800206f          j               9856            # 0x8000277c
+
+OUT: [size=96]
+  -- guest addr 0x00000000800000e8 + tb prologue
+0x7fb728000540:  mov    -0x10(%rbp),%ebx
+0x7fb728000543:  test   %ebx,%ebx
+0x7fb728000545:  jl     0x7fb728000588
+0x7fb72800054b:  mov    0x50(%rbp),%rbx
+0x7fb72800054f:  lea    0x1(%rbx),%r12
+  -- guest addr 0x00000000800000ec
+0x7fb728000553:  shl    $0x11,%r12
+  -- guest addr 0x00000000800000f0
+0x7fb728000557:  mov    0x20(%rbp),%r13
+0x7fb72800055b:  add    %r13,%r12
+0x7fb72800055e:  mov    %r12,0x10(%rbp)
+  -- guest addr 0x00000000800000f4
+0x7fb728000562:  shl    $0x11,%rbx
+0x7fb728000566:  mov    %rbx,0x60(%rbp)
+  -- guest addr 0x00000000800000f8
+0x7fb72800056a:  add    %r13,%rbx
+0x7fb72800056d:  mov    %rbx,0x20(%rbp)
+  -- guest addr 0x00000000800000fc
+0x7fb728000571:  mov    $0x8000277c,%ebx
+0x7fb728000576:  mov    %rbx,0x628(%rbp)
+0x7fb72800057d:  mov    %rbp,%rdi
+0x7fb728000580:  callq  *0x12(%rip)        # 0x7fb728000598
+0x7fb728000586:  jmpq   *%rax
+0x7fb728000588:  lea    -0x10c(%rip),%rax        # 0x7fb728000483
+0x7fb72800058f:  jmpq   0x7fb728000018
+  -- tb slow paths + alignment
+0x7fb728000594:  nop    
+0x7fb728000595:  nop    
+0x7fb728000596:  nop    
+0x7fb728000597:  nop    
+  data: [size=8]
+0x7fb728000598:  .quad  0x00005608046fde90
+
+----------------
+IN: _init
+0x000000008000277c:  f5010113          addi            sp,sp,-176
+0x0000000080002780:  00000797          auipc           a5,0            # 0x80002780
+0x0000000080002784:  4807b783          ld              a5,1152(a5)
+0x0000000080002788:  09413023          sd              s4,128(sp)
+0x000000008000278c:  00000a17          auipc           s4,0            # 0x8000278c
+0x0000000080002790:  45ca3a03          ld              s4,1116(s4)
+0x0000000080002794:  09313423          sd              s3,136(sp)
+0x0000000080002798:  40fa09b3          sub             s3,s4,a5
+0x000000008000279c:  08913c23          sd              s1,152(sp)
+0x00000000800027a0:  09213823          sd              s2,144(sp)
+0x00000000800027a4:  00050493          mv              s1,a0
+0x00000000800027a8:  00058913          mv              s2,a1
+0x00000000800027ac:  00020513          mv              a0,tp
+0x00000000800027b0:  00078593          mv              a1,a5
+0x00000000800027b4:  00098613          mv              a2,s3
+0x00000000800027b8:  0a113423          sd              ra,168(sp)
+0x00000000800027bc:  0a813023          sd              s0,160(sp)
+0x00000000800027c0:  07513c23          sd              s5,120(sp)
+0x00000000800027c4:  00020a93          mv              s5,tp
+0x00000000800027c8:  cf9ff0ef          jal             ra,-776         # 0x800024c0
+
+OUT: [size=292]
+  -- guest addr 0x000000008000277c + tb prologue
+0x7fb728000680:  mov    -0x10(%rbp),%ebx
+0x7fb728000683:  test   %ebx,%ebx
+0x7fb728000685:  jl     0x7fb728000798
+
+0x7fb72800068b:  mov    0x10(%rbp),%rbx
+0x7fb72800068f:  add    $0xffffffffffffff50,%rbx
+0x7fb728000696:  mov    %rbx,0x10(%rbp)
+  -- guest addr 0x0000000080002780
+0x7fb72800069a:  mov    $0x80002780,%r12d
+0x7fb7280006a0:  mov    %r12,0x78(%rbp)
+  -- guest addr 0x0000000080002784
+0x7fb7280006a4:  mov    $0x80002c00,%r12d
+0x7fb7280006aa:  mov    (%r12),%r12
+0x7fb7280006ae:  mov    %r12,0x78(%rbp)
+  -- guest addr 0x0000000080002788
+
+////////////////////////128
+0x7fb7280006b2:  lea    0x80(%rbx),%r13
+0x7fb7280006b9:  mov    0xa0(%rbp),%r14
+////////// CRASH
+0x7fb7280006c0:  mov    %r14,0x0(%r13)                                                                ##
+
+  -- guest addr 0x000000008000278c
+0x7fb7280006c4:  mov    $0x8000278c,%r13d
+0x7fb7280006ca:  mov    %r13,0xa0(%rbp)
+  -- guest addr 0x0000000080002790
+0x7fb7280006d1:  mov    $0x80002be8,%r13d
+0x7fb7280006d7:  mov    0x0(%r13),%r13
+0x7fb7280006db:  mov    %r13,0xa0(%rbp)
+  -- guest addr 0x0000000080002794
+0x7fb7280006e2:  lea    0x88(%rbx),%r14
+0x7fb7280006e9:  mov    0x98(%rbp),%r15
+0x7fb7280006f0:  mov    %r15,(%r14)
+  -- guest addr 0x0000000080002798
+0x7fb7280006f3:  sub    %r12,%r13
+0x7fb7280006f6:  mov    %r13,0x98(%rbp)
+  -- guest addr 0x000000008000279c
+0x7fb7280006fd:  lea    0x98(%rbx),%r14
+0x7fb728000704:  mov    0x48(%rbp),%r15
+0x7fb728000708:  mov    %r15,(%r14)
+  -- guest addr 0x00000000800027a0
+0x7fb72800070b:  lea    0x90(%rbx),%r14
+0x7fb728000712:  mov    0x90(%rbp),%r15
+0x7fb728000719:  mov    %r15,(%r14)
+  -- guest addr 0x00000000800027a4
+0x7fb72800071c:  mov    0x50(%rbp),%r14
+0x7fb728000720:  mov    %r14,0x48(%rbp)
+  -- guest addr 0x00000000800027a8
+0x7fb728000724:  mov    0x58(%rbp),%r14
+0x7fb728000728:  mov    %r14,0x90(%rbp)
+  -- guest addr 0x00000000800027ac
+0x7fb72800072f:  mov    0x20(%rbp),%r14
+0x7fb728000733:  mov    %r14,0x50(%rbp)
+  -- guest addr 0x00000000800027b0
+0x7fb728000737:  mov    %r12,0x58(%rbp)
+  -- guest addr 0x00000000800027b4
+0x7fb72800073b:  mov    %r13,0x60(%rbp)
+  -- guest addr 0x00000000800027b8
+0x7fb72800073f:  lea    0xa8(%rbx),%r12
+0x7fb728000746:  mov    0x8(%rbp),%r13
+0x7fb72800074a:  mov    %r13,(%r12)
+  -- guest addr 0x00000000800027bc
+0x7fb72800074e:  lea    0xa0(%rbx),%r12
+0x7fb728000755:  mov    0x40(%rbp),%r13
+0x7fb728000759:  mov    %r13,(%r12)
+  -- guest addr 0x00000000800027c0
+0x7fb72800075d:  add    $0x78,%rbx
+0x7fb728000761:  mov    0xa8(%rbp),%r12
+0x7fb728000768:  mov    %r12,(%rbx)
+  -- guest addr 0x00000000800027c4
+0x7fb72800076b:  mov    %r14,0xa8(%rbp)
+  -- guest addr 0x00000000800027c8
+0x7fb728000772:  mov    $0x800027cc,%ebx
+0x7fb728000777:  mov    %rbx,0x8(%rbp)
+0x7fb72800077b:  jmpq   0x7fb728000780
+0x7fb728000780:  mov    $0x800024c0,%ebx
+0x7fb728000785:  mov    %rbx,0x628(%rbp)
+0x7fb72800078c:  lea    -0x1d3(%rip),%rax        # 0x7fb7280005c0
+0x7fb728000793:  jmpq   0x7fb728000018
+0x7fb728000798:  lea    -0x1dc(%rip),%rax        # 0x7fb7280005c3
+0x7fb72800079f:  jmpq   0x7fb728000018
+

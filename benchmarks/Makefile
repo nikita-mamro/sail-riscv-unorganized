@@ -21,8 +21,11 @@ RISCV_GCC ?= $(RISCV_PREFIX)gcc-12
 #--------------------------------------------------------------------
 #RISCV_PREFIX = riscv$(XLEN)-unknown-elf-
 #RISCV_GCC = $(RISCV_PREFIX)gcc
-RISCV_GCC_OPTS ?= -DPREALLOCATE=1 -mcmodel=medany -static -std=gnu99 -O2 -ffast-math -fno-common \
--fno-builtin-printf -fno-tree-loop-distribute-patterns -mabi=lp64d -march=rv64imd \
+RISCV_GCC_OPTS ?= -DPREALLOCATE=1 -mcmodel=medany \
+-static -std=gnu99 -O2 -ffast-math -fno-common \
+-fno-builtin-printf -fno-tree-loop-distribute-patterns\
+-mabi=lp64d -march=rv64imd \
+-save-temps\
 -Xlinker -Map=output.map 
 
 RISCV_LINK_OPTS ?= -static -nostdlib -nostartfiles -lm -lgcc -T $(src_dir)/common/test.ld

@@ -49,7 +49,7 @@ _start:
 
   # enable FPU and accelerator if present
   li t0, MSTATUS_FS | MSTATUS_XS
-  csrs mstatus, t0
+  #TMP csrs mstatus, t0
 
   # make sure XLEN agrees with compilation choice
   li t0, 1
@@ -65,10 +65,10 @@ _start:
   j 2b
 1:
 
-#ifdef __riscv_flen
+#ifdef XXXXXXXXXXXXXXXXXXXXXXXXXXX __riscv_flen
   # initialize FPU if we have one
   la t0, 1f
-  csrw mtvec, t0
+  #TMP csrw mtvec, t0
 
   fssr    x0
   fmv.s.x f0, x0
@@ -108,7 +108,7 @@ _start:
 
   # initialize trap vector
   la t0, trap_entry
-  csrw mtvec, t0
+  #TMP csrw mtvec, t0
 
   # initialize global pointer
 .option push
@@ -121,7 +121,7 @@ _start:
   and tp, tp, -64
 
   # get core id
-  csrr a0, mhartid
+  #TMP csrr a0, mhartid
   # for now, assume only 1 core
   li a1, 1
 1:bgeu a0, a1, 1b
