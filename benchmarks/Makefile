@@ -10,31 +10,34 @@ default: all
 
 src_dir = .
 out_dir = $(src_dir)/_out
+sail_sim_dir = $(src_dir)./c_emulator
 
 bmarks = \
 	sum \
 
 #--------------------------------------------------------------------
-# dangerous relocation: The addend isn't allowed for R_RISCV_GOT_HI20
-RISCV_PREFIX ?= riscv$(XLEN)-linux-gnu-
-RISCV_GCC ?= $(RISCV_PREFIX)gcc-12
-#--------------------------------------------------------------------
-#RISCV_PREFIX = riscv$(XLEN)-unknown-elf-
-#RISCV_GCC = $(RISCV_PREFIX)gcc
+RISCV_PREFIX = riscv$(XLEN)-unknown-elf-
+#RISCV_PREFIX ?= riscv$(XLEN)-linux-gnu-
+RISCV_GCC = $(RISCV_PREFIX)gcc
+#RISCV_GCC ?= $(RISCV_PREFIX)gcc-12
 RISCV_GCC_OPTS ?= -DPREALLOCATE=1 -mcmodel=medany \
+-g \
 -static -std=gnu99 -O2 -ffast-math -fno-common \
 -fno-builtin-printf -fno-tree-loop-distribute-patterns\
 -mabi=lp64d -march=rv64imd \
 -save-temps\
 -Xlinker -Map=output.map 
 
-RISCV_LINK_OPTS ?= -static -nostdlib -nostartfiles -lm -lgcc -T $(src_dir)/common/test.ld
+RISCV_LINK_OPTS ?= -static -nostdlib -nostartfiles -Wl,-T,$(src_dir)/common/test.ld -lm -lgcc
 
 SPIKE_RISCV_SIM ?= spike
-SPIKE_RISCV_SIM ?=
+SPIKE_RISCV_SIM_OPTS ?=
+
+QEMU_RISCV_SIM ?= qemu-riscv64
+QEMU_RISCV_SIM_OPTS ?=
 
 # TODO: fix paths
-SAIL_RISCV_SIM ?= /home/nikita/Code/sail_riscv/sail-riscv/c_emulator/riscv_sim_RV$(XLEN)
+SAIL_RISCV_SIM ?= $(sail_sim_dir)/riscv_sim_RV$(XLEN)
 SAIL_RISCV_SIM_OPTS ?=
 
 #incs  += -I$(src_dir)/../env -I$(src_dir)/common $(addprefix -I$(src_dir)/, $(bmarks))
@@ -69,6 +72,12 @@ sail_v: elf
 
 spike: elf
 	$(foreach file, $(out_dir)/$(bmarks_riscv_elf), $(SPIKE_RISCV_SIM) $(SPIKE_RISCV_SIM_OPTS) $(file);)
+
+qemu: elf
+	$(foreach file, $(out_dir)/$(bmarks_riscv_elf), $(QEMU_RISCV_SIM) $(QEMU_RISCV_SIM_OPTS) $(file);)
+
+host: elf
+	$(foreach file, $(out_dir)/$(bmarks_riscv_elf), $(file);)
 
 all: elf
 

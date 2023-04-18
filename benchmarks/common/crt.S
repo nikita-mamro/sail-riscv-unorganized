@@ -48,8 +48,14 @@ _start:
   li  x31,0
 
   # enable FPU and accelerator if present
-  li t0, MSTATUS_FS | MSTATUS_XS
-  #TMP csrs mstatus, t0
+  #li t0, MSTATUS_FS | MSTATUS_XS
+  # TMP ----
+  #csrs mstatus, t0
+
+  #li t0, CSR_USTATUS
+  #csrs mstatus, t0
+
+  #/TMP ----
 
   # make sure XLEN agrees with compilation choice
   li t0, 1
@@ -65,10 +71,12 @@ _start:
   j 2b
 1:
 
-#ifdef XXXXXXXXXXXXXXXXXXXXXXXXXXX __riscv_flen
+#ifdef TMP__riscv_flen
   # initialize FPU if we have one
   la t0, 1f
-  #TMP csrw mtvec, t0
+  # TMP ----
+  csrw mtvec, t0
+  #/TMP ----
 
   fssr    x0
   fmv.s.x f0, x0
@@ -108,23 +116,27 @@ _start:
 
   # initialize trap vector
   la t0, trap_entry
-  #TMP csrw mtvec, t0
+  # TMP ----
+  #csrw mtvec, t0
+  #csrw stvec, t0
+  #/TMP ----
 
   # initialize global pointer
 .option push
 .option norelax
   la gp, __global_pointer$
 .option pop
-
   la  tp, _end
   addi tp, tp, 63
   and tp, tp, -64
 
   # get core id
-  #TMP csrr a0, mhartid
+  # TMP ----
+  # csrr a0, mhartid
+  #/TMP ----
   # for now, assume only 1 core
-  li a1, 1
-1:bgeu a0, a1, 1b
+  #li a1, 1
+  # 1:bgeu a0, a1, 1b
 
   # give each core 128KB of stack + TLS
 #define STKSHIFT 17

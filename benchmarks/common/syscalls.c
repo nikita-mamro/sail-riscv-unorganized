@@ -105,19 +105,20 @@ static void init_tls()
 
 void _init(int cid, int nc)
 {
+  asm volatile("addi sp, sp, -2000");
   init_tls();
   thread_entry(cid, nc);
 
   // only single-threaded programs should ever get here.
   int ret = main(0, 0);
 
-  char buf[NUM_COUNTERS * 32] __attribute__((aligned(64)));
-  char* pbuf = buf;
-  for (int i = 0; i < NUM_COUNTERS; i++)
-    if (counters[i])
-      pbuf += sprintf(pbuf, "%s = %lu\n", counter_names[i], counters[i]);
-  if (pbuf != buf)
-    printstr(buf);
+  //char buf[NUM_COUNTERS * 32] __attribute__((aligned(64)));
+  //char* pbuf = buf;
+  //for (int i = 0; i < NUM_COUNTERS; i++)
+  //  if (counters[i])
+  //    pbuf += sprintf(pbuf, "%s = %lu\n", counter_names[i], counters[i]);
+  //if (pbuf != buf)
+  //  printstr(buf);
 
   exit(ret);
 }
